@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" spacing="15" style="-fx-padding: 10px;" xmlns:fx="http://javafx.com/fxml" fx:controller="com.quiz.controller.LoginController">
+    <!-- Title Label -->
+    <Label text="Connexion" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #333333;" />
+    
+    <!-- Email TextField -->
+    <TextField fx:id="emailField" promptText="Email" style="-fx-pref-width: 300px; -fx-padding: 10px; -fx-font-size: 14px; -fx-background-radius: 5px;" />
+    
+    <!-- Password PasswordField -->
+    <PasswordField fx:id="passwordField" promptText="Mot de passe" style="-fx-pref-width: 300px; -fx-padding: 10px; -fx-font-size: 14px; -fx-background-radius: 5px;" />
+    
+    <!-- Login Button -->
+    <Button text="Connexion" onAction="#handleLogin" style="-fx-pref-width: 300px; -fx-padding: 10px; -fx-font-size: 16px; -fx-background-color: #4CAF50; -fx-text-fill: white; -fx-background-radius: 5px;" />
+    
+    <!-- Sign-up Hyperlink -->
+    <Hyperlink text="Créer un compte" onAction="#handleSignup" style="-fx-font-size: 14px; -fx-text-fill: #0066CC; -fx-font-weight: bold;" />
+</VBox>

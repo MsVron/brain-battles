@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<VBox spacing="20" alignment="CENTER" style="-fx-padding: 20px; -fx-background-color: #f4f4f4;" xmlns:fx="http://javafx.com/fxml" fx:controller="com.quiz.controller.QuizController">
+    
+    <!-- Titre du Quiz -->
+    <Label fx:id="quizTitle" text="Titre du Quiz" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #333333;" />
+    
+    <!-- Question -->
+    <Label fx:id="questionText" wrapText="true" style="-fx-font-size: 18px; -fx-text-fill: #333333; -fx-padding: 10px;" />
+
+    <!-- Options de réponses -->
+    <VBox spacing="10" alignment="CENTER" style="-fx-padding: 10px;">
+        <RadioButton fx:id="option1" toggleGroup="$answerGroup" text="Option 1" style="-fx-font-size: 16px; -fx-padding: 5px;" />
+        <RadioButton fx:id="option2" toggleGroup="$answerGroup" text="Option 2" style="-fx-font-size: 16px; -fx-padding: 5px;" />
+        <RadioButton fx:id="option3" toggleGroup="$answerGroup" text="Option 3" style="-fx-font-size: 16px; -fx-padding: 5px;" />
+        <RadioButton fx:id="option4" toggleGroup="$answerGroup" text="Option 4" style="-fx-font-size: 16px; -fx-padding: 5px;" />
+    </VBox>
+    
+    <!-- Bouton Soumettre -->
+    <Button text="Soumettre" onAction="#handleSubmitAnswer" style="-fx-font-size: 16px; -fx-background-color: #4CAF50; -fx-text-fill: white; -fx-padding: 10px 20px; -fx-border-radius: 5px; -fx-background-radius: 5px;" />
+
+    <!-- Feedback pour la réponse -->
+    <Label fx:id="feedbackLabel" text="" style="-fx-font-size: 16px; -fx-text-fill: #333333; -fx-padding: 10px;" />
+</VBox>
