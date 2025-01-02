@@ -1,27 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.control.*?>
+
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.geometry.Insets?>
 
-<VBox spacing="20" alignment="CENTER" style="-fx-padding: 20px; -fx-background-color: #f4f4f4;" xmlns:fx="http://javafx.com/fxml" fx:controller="com.quiz.controller.QuizController">
-    
-    <!-- Titre du Quiz -->
-    <Label fx:id="quizTitle" text="Titre du Quiz" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #333333;" />
-    
-    <!-- Question -->
-    <Label fx:id="questionText" wrapText="true" style="-fx-font-size: 18px; -fx-text-fill: #333333; -fx-padding: 10px;" />
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" 
+      fx:controller="com.quiz.controller.QuizController"
+      styleClass="quiz-container" spacing="15">
 
-    <!-- Options de réponses -->
-    <VBox spacing="10" alignment="CENTER" style="-fx-padding: 10px;">
-        <RadioButton fx:id="option1" toggleGroup="$answerGroup" text="Option 1" style="-fx-font-size: 16px; -fx-padding: 5px;" />
-        <RadioButton fx:id="option2" toggleGroup="$answerGroup" text="Option 2" style="-fx-font-size: 16px; -fx-padding: 5px;" />
-        <RadioButton fx:id="option3" toggleGroup="$answerGroup" text="Option 3" style="-fx-font-size: 16px; -fx-padding: 5px;" />
-        <RadioButton fx:id="option4" toggleGroup="$answerGroup" text="Option 4" style="-fx-font-size: 16px; -fx-padding: 5px;" />
+    <!-- Control Bar -->
+    <HBox alignment="CENTER_RIGHT" spacing="10" styleClass="control-bar">
+        <Button fx:id="pauseButton" onAction="#handlePause" styleClass="control-button" text="⏸"/>
+        <Button fx:id="musicButton" onAction="#handleMusic" styleClass="control-button" text="🎵"/>
+        <Button fx:id="settingsButton" onAction="#handleSettings" styleClass="control-button" text="⚙"/>
+        <padding>
+            <Insets top="10" right="10" bottom="10" left="10"/>
+        </padding>
+    </HBox>
+
+    <!-- Quiz Title -->
+    <Label fx:id="quizTitle" text="Quiz" styleClass="quiz-title"/>
+
+    <!-- Timer Container -->
+    <StackPane>
+        <Circle fx:id="timerCircle" radius="30" fill="white" stroke="#E5E7EB" strokeWidth="2"/>
+        <VBox alignment="CENTER" spacing="2">
+            <Label fx:id="timerLabel" styleClass="timer-text"/>
+            <Label text="secondes" styleClass="timer-subtitle"/>
+        </VBox>
+    </StackPane>
+
+    <!-- Question Container -->
+    <VBox alignment="CENTER" spacing="20" styleClass="question-container">
+        <padding>
+            <Insets top="30" right="20" bottom="30" left="20"/>
+        </padding>
+        
+        <Label fx:id="questionText" styleClass="question-text" wrapText="true"/>
+        
+        <!-- Question Number Indicator -->
+        <StackPane>
+            <Circle fx:id="questionNumberCircle" radius="15" fill="white" stroke="#FB923C" strokeWidth="2"/>
+            <Label fx:id="questionNumberLabel" styleClass="question-number-text"/>
+        </StackPane>
     </VBox>
-    
-    <!-- Bouton Soumettre -->
-    <Button text="Soumettre" onAction="#handleSubmitAnswer" style="-fx-font-size: 16px; -fx-background-color: #4CAF50; -fx-text-fill: white; -fx-padding: 10px 20px; -fx-border-radius: 5px; -fx-background-radius: 5px;" />
 
-    <!-- Feedback pour la réponse -->
-    <Label fx:id="feedbackLabel" text="" style="-fx-font-size: 16px; -fx-text-fill: #333333; -fx-padding: 10px;" />
+    <!-- Answer Grid -->
+    <GridPane fx:id="answerGrid" hgap="10" vgap="10" alignment="CENTER">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="150" prefWidth="200"/>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="150" prefWidth="200"/>
+        </columnConstraints>
+        <RadioButton fx:id="option1" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="answer-button"/>
+        <RadioButton fx:id="option2" GridPane.rowIndex="0" GridPane.columnIndex="1" styleClass="answer-button"/>
+        <RadioButton fx:id="option3" GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="answer-button"/>
+        <RadioButton fx:id="option4" GridPane.rowIndex="1" GridPane.columnIndex="1" styleClass="answer-button"/>
+        <padding>
+            <Insets top="20" right="20" bottom="20" left="20"/>
+        </padding>
+    </GridPane>
+
+    <!-- Feedback and Next Button Container -->
+    <VBox alignment="CENTER" spacing="10">
+        <Label fx:id="feedbackLabel" styleClass="feedback-label"/>
+        <Button fx:id="nextButton" text="Suivant" onAction="#handleSubmitAnswer" styleClass="next-button"/>
+        <padding>
+            <Insets top="10" right="10" bottom="20" left="10"/>
+        </padding>
+    </VBox>
 </VBox>
