@@ -10,7 +10,8 @@
       styleClass="options-container" 
       spacing="10" 
       alignment="CENTER"
-      minWidth="300">
+      minWidth="300"
+      stylesheets="@../styles/OptionsMenu.css">
     
     <!-- Header -->
     <Label text="Options" 

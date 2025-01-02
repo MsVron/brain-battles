@@ -1,0 +1,59 @@
+/* General styles for the leaderboard container */
+.leaderboard-container {
+    -fx-background-color: #1e1e2f; /* Dark background */
+    -fx-border-radius: 20;
+    -fx-border-width: 2;
+    -fx-border-color: rgba(79, 70, 229, 0.2); /* Subtle border */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 20, 0, 0, 15); /* Shadow effect */
+    -fx-padding: 20;
+}
+
+/* Button styling for the return button */
+.button-return {
+    -fx-font-size: 16px;
+    -fx-padding: 10px 20px;
+    -fx-background-color: #4CAF50; /* Green background */
+    -fx-text-fill: white;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 8, 0, 0, 4);
+}
+
+.button-return:hover {
+    -fx-background-color: #45a049;
+}
+
+/* Title styling */
+.leaderboard-title {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #FFD700; /* Gold text */
+    -fx-alignment: center;
+    -fx-background-color: transparent; /* Transparent background */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0, 0, 5); /* Shadow for visibility */
+}
+
+/* Table styling */
+.leaderboard-table {
+    -fx-background-color: #262636; /* Darker background for the table */
+    -fx-border-color: rgba(79, 70, 229, 0.2); /* Light border color */
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(79, 70, 229, 0.1), 8, 0, 0, 4);
+    -fx-pref-width: 600px;
+}
+
+/* Table column styling */
+.leaderboard-column {
+    -fx-alignment: CENTER;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #FFD700; /* Gold text */
+    -fx-background-color: transparent; /* Transparent background */
+}
+
+/* Make the table rows stand out with slight hovering effect */
+.table-row-cell:hover {
+    -fx-background-color: rgba(79, 70, 229, 0.2); /* Hover effect on rows */
+}

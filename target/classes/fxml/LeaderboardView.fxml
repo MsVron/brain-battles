@@ -3,25 +3,27 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.*?>
 
-<VBox spacing="20" alignment="CENTER" style="-fx-padding: 20px; -fx-background-color: #f4f4f4;" xmlns:fx="http://javafx.com/fxml" fx:controller="com.quiz.controller.LeaderboardController">
+
+   <VBox spacing="20" alignment="CENTER" styleClass="leaderboard-container" xmlns:fx="http://javafx.com/fxml" fx:controller="com.quiz.controller.LeaderboardController"
+   stylesheets="@../styles/Leaderboard.css">
     
     <!-- Bouton Retour -->
-    <Button text="Retour" onAction="#handleBack" style="-fx-font-size: 16px; -fx-padding: 10px 20px; -fx-background-color: #4CAF50; -fx-text-fill: white; -fx-border-radius: 5px; -fx-background-radius: 5px;"/>
+    <Button text="Retour" onAction="#handleBack" styleClass="button-return"/>
 
     <!-- Titre de la page de classement -->
-    <Label text="Classement" style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #333333;" />
+    <Label text="Classement" styleClass="leaderboard-title"/>
 
     <!-- TableView pour afficher le classement -->
-    <TableView fx:id="leaderboardTable" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc; -fx-border-width: 1px; -fx-pref-width: 600px;">
+    <TableView fx:id="leaderboardTable" styleClass="leaderboard-table">
         <columns>
             <!-- Colonne Rang -->
-            <TableColumn fx:id="rankColumn" text="Rang" style="-fx-alignment: CENTER; -fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #333333;" />
+            <TableColumn fx:id="rankColumn" text="Rang" styleClass="leaderboard-column"/>
             
             <!-- Colonne Nom du joueur -->
-            <TableColumn fx:id="nameColumn" text="Nom du joueur" style="-fx-alignment: CENTER; -fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #333333;" />
+            <TableColumn fx:id="nameColumn" text="Nom du joueur" styleClass="leaderboard-column"/>
             
             <!-- Colonne Score -->
-            <TableColumn fx:id="scoreColumn" text="Score" style="-fx-alignment: CENTER; -fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #333333;" />
+            <TableColumn fx:id="scoreColumn" text="Score" styleClass="leaderboard-column"/>
         </columns>
     </TableView>
 </VBox>
