@@ -54,7 +54,14 @@
     -fx-cursor: hand;
     -fx-padding: 10;
     -fx-alignment: center;
+    -fx-pref-width: 200px; /* Fixed width for all answer buttons */
+    -fx-pref-height: 50px; /* Fixed height */
+    -fx-min-height: 50px; /* Ensure minimum height */
+    -fx-text-alignment: center; /* Center text */
+    -fx-wrap-text: true; /* Allow text wrapping */
 }
+
+
 
 .answer-button:hover {
     -fx-background-color: rgba(100, 80, 250, 0.3);
