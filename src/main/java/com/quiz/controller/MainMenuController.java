@@ -105,7 +105,7 @@ public class MainMenuController {
     // Méthode d'initialisation qui peut être utilisée pour personnaliser le label ou d'autres éléments
     @FXML
     private void initialize() {
-        label.setText("Bienvenue dans l'application Quiz !");
+        label.setText("Brain Battles");
     }
 
     // Méthode utilitaire pour afficher des alertes d'erreur

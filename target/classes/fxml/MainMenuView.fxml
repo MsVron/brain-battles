@@ -3,20 +3,32 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.*?>
 
-<VBox alignment="CENTER" spacing="20" style="-fx-padding: 100px;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml" fx:controller="com.quiz.controller.MainMenuController">
-    <!-- Titre de l'application -->
-    <Label fx:id="label" text="Bienvenue dans l'application Quiz !" 
-           style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: #333333; -fx-padding: 10px;" />
-    
-    <!-- Bouton Commencer un Quiz -->
-    <Button text="Commencer un Quiz" fx:id="startQuizButton" onAction="#handleStartQuiz" 
-            style="-fx-font-size: 16px; -fx-padding: 15px; -fx-background-color: #4CAF50; -fx-text-fill: white; -fx-background-radius: 5px; -fx-effect: dropshadow(gaussian, #000000, 10, 0, 2, 2);" />
-    
-    <!-- Bouton Voir le Classement -->
-    <Button text="Voir le Classement" fx:id="viewLeaderboardButton" onAction="#handleViewLeaderboard" 
-            style="-fx-font-size: 16px; -fx-padding: 15px; -fx-background-color: #2196F3; -fx-text-fill: white; -fx-background-radius: 5px; -fx-effect: dropshadow(gaussian, #000000, 10, 0, 2, 2);" />
-    
-    <!-- Bouton Se Déconnecter -->
-    <Button text="Se Déconnecter" fx:id="logoutButton" onAction="#handleLogout" 
-            style="-fx-font-size: 16px; -fx-padding: 15px; -fx-background-color: #F44336; -fx-text-fill: white; -fx-background-radius: 5px; -fx-effect: dropshadow(gaussian, #000000, 10, 0, 2, 2);" />
+<VBox alignment="CENTER" 
+      spacing="20" 
+      styleClass="root"
+      prefWidth="800"
+      prefHeight="600"
+      stylesheets="@../styles/MainMenu.css"
+      xmlns="http://javafx.com/javafx/8" 
+      xmlns:fx="http://javafx.com/fxml" 
+      fx:controller="com.quiz.controller.MainMenuController">
+      
+    <Label fx:id="label" 
+           text="Brain Battles" 
+           styleClass="main-title"/>
+
+    <Button text="Commencer un Quiz" 
+            fx:id="startQuizButton" 
+            onAction="#handleStartQuiz"
+            styleClass="menu-button, primary-button"/>
+
+    <Button text="Voir le Classement" 
+            fx:id="viewLeaderboardButton" 
+            onAction="#handleViewLeaderboard"
+            styleClass="menu-button, secondary-button"/>
+
+    <Button text="Se Déconnecter" 
+            fx:id="logoutButton" 
+            onAction="#handleLogout"
+            styleClass="menu-button, danger-button"/>
 </VBox>
