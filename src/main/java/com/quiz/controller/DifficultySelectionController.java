@@ -1,12 +1,23 @@
 package com.quiz.controller;
 
 import javafx.fxml.FXML;
+import com.quiz.App;
+import com.quiz.database.entity.User;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class DifficultySelectionController {
+	
+	private User user;
+
     private Stage stage;
+    
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     
     public void setStage(Stage stage) {
         this.stage = stage;
@@ -35,6 +46,7 @@ public class DifficultySelectionController {
             QuizController quizController = loader.getController();
             quizController.setTimePerQuestion(timePerQuestion);
             quizController.setPrimaryStage(stage);
+            quizController.setUser(this.user);
             quizController.resetQuiz();
             
             stage.setScene(quizScene);

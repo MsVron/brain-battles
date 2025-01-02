@@ -27,6 +27,8 @@ import java.util.List;
 public class QuizController {
 	
 	private int timePerQuestion = 30;
+	
+	private User user;
 
     @FXML private Label quizTitle;
     @FXML private Label questionText;
@@ -59,6 +61,10 @@ public class QuizController {
     
     public void setPrimaryStage(Stage stage) {
         this.primaryStage = stage;
+    }
+    
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @FXML
@@ -239,11 +245,16 @@ public class QuizController {
 
     @FXML
     private void handleSubmitAnswer() {
-        if (!isPaused) {
-            if (timer != null) {
-                timer.pause();
+        try {
+            if (!isPaused) {
+                if (timer != null) {
+                    timer.pause();
+                }
+                processAnswer();
             }
-            processAnswer();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("Error in handleSubmitAnswer: " + e.getMessage());
         }
     }
 
@@ -307,15 +318,28 @@ public class QuizController {
             timer.stop();
         }
         saveQuizResults();
-        closeQuizWindow();
+        
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/LeaderboardView.fxml"));
+            Scene leaderboardScene = new Scene(loader.load());
+            Stage stage = (Stage) quizTitle.getScene().getWindow();
+            stage.setScene(leaderboardScene);
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Error", "Couldn't load leaderboard.", AlertType.ERROR);
+        }
     }
 
     private void saveQuizResults() {
-        boolean isSaved = UserScoreDao.saveScore(App.user.getUserId(), quizId, score);
+    	if (this.user == null) {
+            showAlert("Error", "No user logged in. Score not saved.", AlertType.ERROR);
+            return;
+        }
+        boolean isSaved = UserScoreDao.saveScore(this.user.getUserId(), quizId, score);
         if (isSaved) {
-            showAlert("Quiz terminé !", "Votre score a été enregistré : " + score + "/" + questions.size(), AlertType.INFORMATION);
+            showAlert("Quiz terminé !", "Score: " + score + "/" + questions.size(), AlertType.INFORMATION);
         } else {
-            showAlert("Erreur", "Il y a eu un problème lors de l'enregistrement de votre score.", AlertType.ERROR);
+            showAlert("Error", "Could not save score.", AlertType.ERROR);
         }
     }
 

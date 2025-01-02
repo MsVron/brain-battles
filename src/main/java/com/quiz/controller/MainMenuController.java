@@ -1,5 +1,7 @@
 package com.quiz.controller;
 
+import com.quiz.App;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -31,19 +33,13 @@ public class MainMenuController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/DifficultySelection.fxml"));
             Scene difficultyScene = new Scene(loader.load());
+            difficultyScene.getStylesheets().add(getClass().getResource("/styles/QuizView.css").toExternalForm());
             
-            // Add the CSS
-            String css = getClass().getResource("/styles/QuizView.css").toExternalForm();
-            difficultyScene.getStylesheets().add(css);
-            
-            // Get current stage
             Stage stage = (Stage) startQuizButton.getScene().getWindow();
-            
-            // Set up difficulty selection
             DifficultySelectionController controller = loader.getController();
             controller.setStage(stage);
+            controller.setUser(App.user); // Add this line
             
-            // Show difficulty selection
             stage.setScene(difficultyScene);
         } catch (Exception e) {
             showErrorAlert("Error", "Could not load difficulty selection.");

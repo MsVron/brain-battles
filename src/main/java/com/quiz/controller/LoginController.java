@@ -11,7 +11,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.application.Platform;
 
-
+import com.quiz.App;
+import com.quiz.database.entity.User;
 
 
 public class LoginController {
@@ -52,21 +53,19 @@ public void initialize() {
             return;
         }
 
-        // Appel à la DAO pour vérifier les informations
-        boolean loginSuccess = UserDao.login(email, password);
-        if (loginSuccess) {
+        // Get the user from login attempt
+        User user = UserDao.loginAndGetUser(email, password);
+        if (user != null) {
+            App.user = user; // Set the logged in user
             showAlert("Succès", "Connexion réussie !", Alert.AlertType.INFORMATION);
 
             try {
-                // Charger l'interface principale (MainMenuView)
-                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainMenuView.fxml"));
-                 Scene mainMenuScene = new Scene(loader.load());
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainMenuView.fxml"));
+                Scene mainMenuScene = new Scene(loader.load());
 
-                // Récupérer la fenêtre principale (Stage)
                 Scene currentScene = emailField.getScene();
                 currentScene.getWindow().hide();
 
-                // Afficher la nouvelle fenêtre principale
                 Stage primaryStage = new Stage();
                 primaryStage.setScene(mainMenuScene);
                 primaryStage.setTitle("Menu Principal");
@@ -75,12 +74,10 @@ public void initialize() {
                 showAlert("Erreur", "Erreur lors du chargement de l'interface principale.", Alert.AlertType.ERROR);
                 e.printStackTrace();
             }
-
         } else {
             showAlert("Erreur", "Identifiants incorrects.", Alert.AlertType.ERROR);
         }
     }
-
     @FXML
     private void handleSignup() throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Signup.fxml"));

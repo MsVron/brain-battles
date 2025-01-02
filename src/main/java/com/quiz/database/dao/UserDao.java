@@ -4,8 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+
 import com.quiz.database.DatabaseConnection;
 import com.quiz.utils.SecurityUtil;
+import com.quiz.database.entity.User;
 
 public class UserDao {
 
@@ -49,6 +52,27 @@ public class UserDao {
             System.out.println("Erreur lors de la création de l'utilisateur : " + e.getMessage());
             return false;
         }
+    }
+    
+    public static User loginAndGetUser(String email, String password) {
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            String query = "SELECT * FROM users WHERE email = ? AND password = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, email);
+            stmt.setString(2, SecurityUtil.hashPassword(password));
+            ResultSet rs = stmt.executeQuery();
+            
+            if (rs.next()) {
+                return new User(
+                    rs.getInt("userId"),
+                    rs.getString("username"),
+                    rs.getString("email")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
     
 }
