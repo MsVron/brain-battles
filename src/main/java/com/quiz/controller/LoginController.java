@@ -16,24 +16,26 @@ import javafx.application.Platform;
 
 public class LoginController {
 	
-	@FXML
-	public void initialize() {
-	    emailField.sceneProperty().addListener((observable, oldValue, newValue) -> {
-	        if (newValue != null) {
-	            Stage stage = (Stage) emailField.getScene().getWindow();
-	            stage.setWidth(900);
-	            stage.setHeight(600);
-	            stage.centerOnScreen();
-	            
-	            // Load CSS
-	            Scene scene = emailField.getScene();
-	            scene.getStylesheets().clear();  // Clear any existing stylesheets
-	            String css = getClass().getResource("/styles/LoginView.css").toExternalForm();
-	            scene.getStylesheets().add(css);
-	        }
-	    });
-	}
-	
+@FXML
+public void initialize() {
+    // Wait for the scene to be set before trying to access the window/stage
+    Platform.runLater(() -> {
+        if (emailField != null && emailField.getScene() != null) {
+            Stage stage = (Stage) emailField.getScene().getWindow();
+            if (stage != null) {
+                stage.setWidth(900);
+                stage.setHeight(600);
+                stage.centerOnScreen();
+                
+                // Load CSS
+                Scene scene = emailField.getScene();
+                scene.getStylesheets().clear();
+                String css = getClass().getResource("/styles/LoginView.css").toExternalForm();
+                scene.getStylesheets().add(css);
+            }
+        }
+    });
+}
     @FXML
     private TextField emailField;
 
