@@ -20,7 +20,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import java.io.IOException;
 import java.util.List;
 
@@ -54,6 +55,23 @@ public class QuizController {
     private boolean isMusicOn = false;
     private int quizId = 1;
     private Stage primaryStage;
+    private MediaPlayer mediaPlayer;
+    private final String MUSIC_FILE = "/sounds/background_music.mp3";
+    
+    private void initializeMusic() {
+        try {
+            Media media = new Media(getClass().getResource(MUSIC_FILE).toExternalForm());
+            mediaPlayer = new MediaPlayer(media);
+            mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE); // Loop the music
+            mediaPlayer.setVolume(0.5); // Set initial volume to 50%
+            mediaPlayer.play(); // Start playing when quiz starts
+            isMusicOn = true;
+            musicButton.setText("🔊");
+        } catch (Exception e) {
+            System.err.println("Error loading music: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 
     public void setTimePerQuestion(int seconds) {
         this.timePerQuestion = seconds;
@@ -76,6 +94,7 @@ public class QuizController {
         initializeTimer();
         setupControlButtons();
         setupStyling();
+        initializeMusic();
         loadQuestion();
         updateQuestionNumber();
     }
@@ -140,10 +159,18 @@ public class QuizController {
 
     @FXML
     private void handleMusic() {
-        isMusicOn = !isMusicOn;
-        musicButton.setText(isMusicOn ? "🔊" : "🔇");
-        musicButton.setStyle(isMusicOn ? "-fx-text-fill: #3B82F6;" : "-fx-text-fill: black;");
-        // Add music playback logic here
+        if (mediaPlayer != null) {
+            isMusicOn = !isMusicOn;
+            if (isMusicOn) {
+                mediaPlayer.play();
+                musicButton.setText("🔊");
+                musicButton.setStyle("-fx-text-fill: #3B82F6;");
+            } else {
+                mediaPlayer.pause();
+                musicButton.setText("🔇");
+                musicButton.setStyle("-fx-text-fill: black;");
+            }
+        }
     }
 
     @FXML
@@ -317,6 +344,9 @@ public class QuizController {
         if (timer != null) {
             timer.stop();
         }
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+        }
         saveQuizResults();
         
         try {
@@ -329,7 +359,6 @@ public class QuizController {
             showAlert("Error", "Couldn't load leaderboard.", AlertType.ERROR);
         }
     }
-
     private void saveQuizResults() {
     	if (this.user == null) {
             showAlert("Error", "No user logged in. Score not saved.", AlertType.ERROR);
@@ -377,9 +406,13 @@ public class QuizController {
     }
 }
     // Method for cleanup when closing
-    public void cleanup() {
-        if (timer != null) {
-            timer.stop();
-        }
-    }
+   public void cleanup() {
+	    if (timer != null) {
+	        timer.stop();
+	    }
+	    if (mediaPlayer != null) {
+	        mediaPlayer.stop();
+	        mediaPlayer.dispose();
+	    }
+	}
 }
