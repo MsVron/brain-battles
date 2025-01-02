@@ -31,11 +31,12 @@ public class App {
             Scene scene = new Scene(loader.load());
             primaryStage.setScene(scene);
             primaryStage.show();
+            primaryStage.centerOnScreen(); // Center the window
         } catch (IOException e) {
             e.printStackTrace();
+            System.err.println("Failed to load login screen: " + e.getMessage());
         }
     }
-
     public static void logout() {
         user = null; // Clear the current user
         
