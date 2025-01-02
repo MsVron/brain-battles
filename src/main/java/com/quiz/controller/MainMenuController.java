@@ -28,18 +28,25 @@ public class MainMenuController {
     // Méthode appelée lorsqu'on clique sur "Commencer un Quiz"
     @FXML
     private void handleStartQuiz(ActionEvent event) {
-        System.out.println("Démarrer un Quiz");
-
-        // Exemple de changement de scène pour démarrer le quiz
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/QuizView.fxml"));
-            Parent quizRoot = loader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(quizRoot));
-            stage.setTitle("Quiz - En cours");
-            stage.show();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/DifficultySelection.fxml"));
+            Scene difficultyScene = new Scene(loader.load());
+            
+            // Add the CSS
+            String css = getClass().getResource("/styles/QuizView.css").toExternalForm();
+            difficultyScene.getStylesheets().add(css);
+            
+            // Get current stage
+            Stage stage = (Stage) startQuizButton.getScene().getWindow();
+            
+            // Set up difficulty selection
+            DifficultySelectionController controller = loader.getController();
+            controller.setStage(stage);
+            
+            // Show difficulty selection
+            stage.setScene(difficultyScene);
         } catch (Exception e) {
-            showErrorAlert("Erreur", "Impossible de démarrer le quiz.");
+            showErrorAlert("Error", "Could not load difficulty selection.");
             e.printStackTrace();
         }
     }

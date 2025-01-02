@@ -25,6 +25,8 @@ import java.io.IOException;
 import java.util.List;
 
 public class QuizController {
+	
+	private int timePerQuestion = 30;
 
     @FXML private Label quizTitle;
     @FXML private Label questionText;
@@ -51,6 +53,10 @@ public class QuizController {
     private int quizId = 1;
     private Stage primaryStage;
 
+    public void setTimePerQuestion(int seconds) {
+        this.timePerQuestion = seconds;
+    }
+    
     public void setPrimaryStage(Stage stage) {
         this.primaryStage = stage;
     }
@@ -206,13 +212,13 @@ public class QuizController {
     }
 
     private void resetQuestionState() {
-        timeLeft = 30;
+        timeLeft = timePerQuestion; // Use the dynamic time limit
         updateTimerDisplay();
         feedbackLabel.setText("");
         answerGroup.selectToggle(null);
         updateQuestionNumber();
     }
-
+    
     private void updateQuestionNumber() {
         questionNumberLabel.setText((currentQuestionIndex + 1) + "/" + questions.size());
     }

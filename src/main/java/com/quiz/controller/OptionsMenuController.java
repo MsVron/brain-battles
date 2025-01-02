@@ -1,7 +1,9 @@
 package com.quiz.controller;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import com.quiz.App;
@@ -36,13 +38,39 @@ public class OptionsMenuController {
         confirmation.setTitle("New Game");
         confirmation.setHeaderText("Start New Game");
         confirmation.setContentText("Are you sure you want to start a new game? Your current progress will be lost.");
-        
+
         confirmation.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
-                // The quiz is already paused from opening settings
-                quizController.closeQuizWindow();
-                dialogStage.close();
-                App.loadQuiz();
+                try {
+                    // Close current quiz and options windows
+                    quizController.closeQuizWindow();
+                    dialogStage.close();
+                    
+                    // Load difficulty selection
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/DifficultySelection.fxml"));
+                    Scene difficultyScene = new Scene(loader.load());
+                    
+                    // Add CSS
+                    String css = getClass().getResource("/styles/QuizView.css").toExternalForm();
+                    difficultyScene.getStylesheets().add(css);
+                    
+                    // Create new stage and show difficulty selection
+                    Stage stage = App.primaryStage;  // You'll need to make primaryStage public static in App class
+                    
+                    // Set up difficulty selection
+                    DifficultySelectionController controller = loader.getController();
+                    controller.setStage(stage);
+                    
+                    // Show difficulty selection
+                    stage.setScene(difficultyScene);
+                    stage.show();
+                } catch (Exception e) {
+                    Alert error = new Alert(AlertType.ERROR);
+                    error.setTitle("Error");
+                    error.setContentText("Could not load difficulty selection.");
+                    error.showAndWait();
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -90,12 +118,32 @@ public class OptionsMenuController {
     private void handleQuit() {
         Alert confirmation = new Alert(AlertType.CONFIRMATION);
         confirmation.setTitle("Quitter");
-        confirmation.setHeaderText("Quitter l'application");
-        confirmation.setContentText("Êtes-vous sûr de vouloir quitter ?");
+        confirmation.setHeaderText("Quitter le quiz");
+        confirmation.setContentText("Êtes-vous sûr de vouloir retourner au menu principal ?");
         
         confirmation.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
-                System.exit(0);
+                try {
+                    // Close current quiz and options windows
+                    quizController.closeQuizWindow();
+                    dialogStage.close();
+                    
+                    // Load main menu
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainMenuView.fxml"));
+                    Scene mainMenuScene = new Scene(loader.load());
+                    
+                    // Get the primary stage and set the main menu scene
+                    Stage stage = App.primaryStage;
+                    stage.setScene(mainMenuScene);
+                    stage.show();
+                    
+                } catch (Exception e) {
+                    Alert error = new Alert(AlertType.ERROR);
+                    error.setTitle("Error");
+                    error.setContentText("Could not load main menu.");
+                    error.showAndWait();
+                    e.printStackTrace();
+                }
             }
         });
     }

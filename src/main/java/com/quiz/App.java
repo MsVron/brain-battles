@@ -20,7 +20,7 @@ import javafx.stage.Window;
 
 public class App {
     public static User user;
-    private static Stage primaryStage;
+    public static Stage primaryStage;
 
     public static void main(String[] args) {
         Application.launch(JavaFXQuizApp.class, args);

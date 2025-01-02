@@ -9,6 +9,7 @@ com\quiz\controller\QuizController.class
 com\quiz\database\dao\UserScoreDao.class
 com\quiz\database\entity\User.class
 com\quiz\App$JavaFXQuizApp.class
+com\quiz\controller\DifficultySelectionController.class
 com\quiz\database\entity\Question.class
 com\quiz\database\dao\AnswerDao.class
 com\quiz\controller\MainMenuController.class

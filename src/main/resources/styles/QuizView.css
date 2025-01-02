@@ -228,3 +228,45 @@
     -fx-font-weight: bold;
     -fx-rotate: -45;
 }
+
+/*difficulty*/
+
+.difficulty-container {
+    -fx-background-color: white;
+}
+
+.difficulty-button {
+    -fx-padding: 15 30;
+    -fx-min-width: 250;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+}
+
+.easy-button {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+}
+
+.easy-button:hover {
+    -fx-background-color: #45a049;
+}
+
+.medium-button {
+    -fx-background-color: #2196F3;
+    -fx-text-fill: white;
+}
+
+.medium-button:hover {
+    -fx-background-color: #1e88e5;
+}
+
+.hard-button {
+    -fx-background-color: #f44336;
+    -fx-text-fill: white;
+}
+
+.hard-button:hover {
+    -fx-background-color: #e53935;
+}

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.Text?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" 
+      fx:controller="com.quiz.controller.DifficultySelectionController"
+      spacing="20" alignment="CENTER" styleClass="difficulty-container">
+    
+    <padding>
+        <Insets top="40" right="40" bottom="40" left="40"/>
+    </padding>
+
+    <Text text="Select Difficulty" styleClass="title"/>
+    
+    <VBox spacing="15" alignment="CENTER">
+        <Button text="Easy (30 seconds)" onAction="#selectEasy" styleClass="difficulty-button, easy-button"/>
+        <Button text="Medium (20 seconds)" onAction="#selectMedium" styleClass="difficulty-button, medium-button"/>
+        <Button text="Hard (10 seconds)" onAction="#selectHard" styleClass="difficulty-button, hard-button"/>
+    </VBox>
+</VBox>
