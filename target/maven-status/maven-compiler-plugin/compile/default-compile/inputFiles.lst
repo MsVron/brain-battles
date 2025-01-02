@@ -2,6 +2,7 @@ D:\brain battles\hamza-quiz\src\main\java\com\quiz\App.java
 D:\brain battles\hamza-quiz\src\main\java\com\quiz\controller\LeaderboardController.java
 D:\brain battles\hamza-quiz\src\main\java\com\quiz\controller\LoginController.java
 D:\brain battles\hamza-quiz\src\main\java\com\quiz\controller\MainMenuController.java
+D:\brain battles\hamza-quiz\src\main\java\com\quiz\controller\OptionsMenuController.java
 D:\brain battles\hamza-quiz\src\main\java\com\quiz\controller\QuizController.java
 D:\brain battles\hamza-quiz\src\main\java\com\quiz\controller\SignupController.java
 D:\brain battles\hamza-quiz\src\main\java\com\quiz\database\dao\AnswerDao.java

@@ -15,6 +15,7 @@ com\quiz\controller\MainMenuController.class
 com\quiz\App.class
 com\quiz\database\entity\Answer.class
 com\quiz\controller\LoginController.class
+com\quiz\controller\OptionsMenuController.class
 com\quiz\database\entity\Score.class
 com\quiz\controller\SignupController.class
 com\quiz\model\Quiz.class

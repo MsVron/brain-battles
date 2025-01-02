@@ -12,15 +12,16 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.util.List;
 
 public class QuizController {
@@ -48,6 +49,11 @@ public class QuizController {
     private boolean isPaused = false;
     private boolean isMusicOn = false;
     private int quizId = 1;
+    private Stage primaryStage;
+
+    public void setPrimaryStage(Stage stage) {
+        this.primaryStage = stage;
+    }
 
     @FXML
     public void initialize() {
@@ -87,6 +93,15 @@ public class QuizController {
     }
 
     private void setupControlButtons() {
+        // Set up button icons using Unicode characters
+        pauseButton.setText("⏸");
+        musicButton.setText("🔇");
+        settingsButton.setText("⚙");
+        
+        pauseButton.getStyleClass().add("control-button");
+        musicButton.getStyleClass().add("control-button");
+        settingsButton.getStyleClass().add("control-button");
+
         pauseButton.setOnAction(e -> handlePause());
         musicButton.setOnAction(e -> handleMusic());
         settingsButton.setOnAction(e -> handleSettings());
@@ -107,12 +122,62 @@ public class QuizController {
     private void handleMusic() {
         isMusicOn = !isMusicOn;
         musicButton.setText(isMusicOn ? "🔊" : "🔇");
-        // Music logic would go here
+        musicButton.setStyle(isMusicOn ? "-fx-text-fill: #3B82F6;" : "-fx-text-fill: black;");
+        // Add music playback logic here
     }
 
     @FXML
     private void handleSettings() {
-        // Settings logic would go here
+        try {
+            // Pause the quiz before showing settings
+            boolean wasRunning = !isPaused;
+            if (wasRunning) {
+                handlePause(); // This will pause the timer and update the pause button
+            }
+
+            // Load the options menu
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/OptionsMenu.fxml"));
+            VBox optionsDialog = (VBox) loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Options");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(quizTitle.getScene().getWindow());
+            
+            Scene scene = new Scene(optionsDialog);
+            scene.getStylesheets().add(getClass().getResource("/styles/QuizView.css").toExternalForm());
+            
+            dialogStage.setScene(scene);
+
+            OptionsMenuController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setQuizController(this);
+
+            // Show dialog and handle resuming when closed
+            dialogStage.showAndWait();
+            
+            // Only resume if the quiz was running before opening settings
+            // and if we haven't started a new game or quit
+            if (wasRunning && quizTitle.getScene() != null && quizTitle.getScene().getWindow().isShowing()) {
+                handlePause(); // This will unpause the timer and update the pause button
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Error", "Could not load options menu.", AlertType.ERROR);
+        }
+    }
+  
+  
+    public void resetQuiz() {
+        currentQuestionIndex = 0;
+        score = 0;
+        timeLeft = 30;
+        isPaused = false;
+        loadQuestion();
+        if (timer != null) {
+            timer.play();
+        }
     }
 
     private void loadQuestion() {
@@ -134,6 +199,7 @@ public class QuizController {
             option2.setText(answers.get(1).getAnswerText());
             option3.setText(answers.get(2).getAnswerText());
             option4.setText(answers.get(3).getAnswerText());
+            feedbackLabel.setText("");
         } else {
             handleErrorInAnswers();
         }
@@ -141,10 +207,10 @@ public class QuizController {
 
     private void resetQuestionState() {
         timeLeft = 30;
+        updateTimerDisplay();
         feedbackLabel.setText("");
         answerGroup.selectToggle(null);
         updateQuestionNumber();
-        timer.play();
     }
 
     private void updateQuestionNumber() {
@@ -158,8 +224,10 @@ public class QuizController {
 
     @FXML
     private void handleSubmitAnswer() {
-        timer.pause();
-        processAnswer();
+        if (!isPaused) {
+            timer.pause();
+            processAnswer();
+        }
     }
 
     private void processAnswer() {
@@ -211,7 +279,9 @@ public class QuizController {
     }
 
     private void finishQuiz() {
-        timer.stop();
+        if (timer != null) {
+            timer.stop();
+        }
         saveQuizResults();
         closeQuizWindow();
     }
@@ -225,9 +295,14 @@ public class QuizController {
         }
     }
 
-    private void closeQuizWindow() {
+    public void closeQuizWindow() {
+        if (timer != null) {
+            timer.stop();
+        }
         Scene currentScene = quizTitle.getScene();
-        currentScene.getWindow().hide();
+        if (currentScene != null) {
+            currentScene.getWindow().hide();
+        }
     }
 
     private void showAlert(String title, String message, AlertType alertType) {
@@ -237,16 +312,23 @@ public class QuizController {
         alert.showAndWait();
     }
 
-    private void setupStyling() {
-        try {
-            String css = getClass().getResource("/styles/QuizView.css").toExternalForm();
-            Scene scene = quizTitle.getScene();
-            if (scene != null) {
-                scene.getStylesheets().add(css);
-            }
-        } catch (Exception e) {
-            System.err.println("Failed to load CSS: " + e.getMessage());
-            e.printStackTrace();
+   private void setupStyling() {
+    try {
+        // Update the CSS path
+        String css = getClass().getResource("/styles/QuizView.css").toExternalForm(); // Changed path
+        Scene scene = quizTitle.getScene();
+        if (scene != null) {
+            scene.getStylesheets().add(css);
+        }
+    } catch (Exception e) {
+        System.err.println("Failed to load CSS: " + e.getMessage());
+        e.printStackTrace();
+    }
+}
+    // Method for cleanup when closing
+    public void cleanup() {
+        if (timer != null) {
+            timer.stop();
         }
     }
 }

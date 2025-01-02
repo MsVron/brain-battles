@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.quiz.controller.OptionsMenuController"
+      styleClass="options-container" 
+      spacing="10" 
+      alignment="CENTER"
+      minWidth="300">
+    
+    <!-- Header -->
+    <Label text="Options" 
+           styleClass="options-title"/>
+    
+    <!-- Menu Container -->
+    <VBox spacing="10" styleClass="menu-container">
+        <padding>
+            <Insets top="15" right="15" bottom="15" left="15"/>
+        </padding>
+        
+        <Button text="Retourner" 
+                onAction="#handleReturn" 
+                styleClass="menu-button"
+                maxWidth="Infinity"/>
+                
+        <Button text="New Game" 
+                onAction="#handleNewGame" 
+                styleClass="menu-button"
+                maxWidth="Infinity"/>
+                
+        <Button text="déconnexion" 
+                onAction="#handleDisconnect" 
+                styleClass="menu-button"
+                maxWidth="Infinity"/>
+                
+        <Button text="Quitter" 
+                onAction="#handleQuit" 
+                styleClass="menu-button"
+                maxWidth="Infinity"/>
+    </VBox>
+    
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+</VBox>
