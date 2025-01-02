@@ -34,20 +34,50 @@ public class UserScoreDao {
     }
     
     public static boolean saveScore(int userId, int quizId, int score) {
-        String query = "INSERT INTO userScores (userId, quizId, score) VALUES (?, ?, ?)";
-        
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
-            
-            stmt.setInt(1, userId);
-            stmt.setInt(2, quizId);
-            stmt.setInt(3, score);
-            
-            int rowsAffected = stmt.executeUpdate();
-            return rowsAffected > 0;
-            
+        Connection conn = null;
+        try {
+            conn = DatabaseConnection.getConnection();
+            conn.setAutoCommit(false);
+
+            // Check if score exists
+            String select = "SELECT score FROM userScores WHERE userId = ? AND quizId = ?";
+            PreparedStatement selectStmt = conn.prepareStatement(select);
+            selectStmt.setInt(1, userId);
+            selectStmt.setInt(2, quizId);
+            ResultSet rs = selectStmt.executeQuery();
+
+            if (rs.next()) {
+                int existingScore = rs.getInt("score");
+                if (score > existingScore) {
+                    // Update if new score is higher
+                    String update = "UPDATE userScores SET score = ? WHERE userId = ? AND quizId = ?";
+                    PreparedStatement updateStmt = conn.prepareStatement(update);
+                    updateStmt.setInt(1, score);
+                    updateStmt.setInt(2, userId);
+                    updateStmt.setInt(3, quizId);
+                    updateStmt.executeUpdate();
+                }
+            } else {
+                // Insert new score
+                String insert = "INSERT INTO userScores (userId, quizId, score) VALUES (?, ?, ?)";
+                PreparedStatement insertStmt = conn.prepareStatement(insert);
+                insertStmt.setInt(1, userId);
+                insertStmt.setInt(2, quizId);
+                insertStmt.setInt(3, score);
+                insertStmt.executeUpdate();
+            }
+
+            conn.commit();
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
+            if (conn != null) {
+                try {
+                    conn.rollback();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
             return false;
         }
     }
