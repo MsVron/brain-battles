@@ -1,0 +1,87 @@
+.root {
+    -fx-background-color: linear-gradient(to bottom, #1a1a2e, #0f0f1f, #16213e); /* Smooth gradient */
+    -fx-padding: 20;
+}
+
+.quiz-container {
+    -fx-background-color: rgba(30, 30, 50, 0.95);
+    -fx-border-color: rgba(100, 100, 200, 0.2);
+    -fx-border-width: 2;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 20, 0, 0, 15);
+    -fx-padding: 20; /* Added padding for a cleaner layout */
+}
+
+.timer-circle {
+    -fx-fill: linear-gradient(to right, #FFD700, #FFA500); /* Subtle gradient for the circle */
+    -fx-stroke: white; /* Clear white stroke for visibility */
+    -fx-stroke-width: 2;
+    -fx-effect: dropshadow(gaussian, rgba(255, 215, 0, 0.4), 8, 0, 0, 3);
+}
+
+.timer-text {
+    -fx-font-weight: bold;
+    -fx-font-size: 20; /* Adjusted for better readability */
+    -fx-text-fill: #1a1a2e; /* Contrasting dark color for better visibility */
+    -fx-alignment: center; /* Center the text perfectly */
+}
+
+.question-container {
+    -fx-background-color: rgba(26, 26, 46, 0.7); /* Matches the quiz container */
+    -fx-border-color: rgba(79, 70, 229, 0.2);
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+    -fx-min-height: 200;
+    -fx-padding: 20; /* Padding inside the container */
+    -fx-effect: dropshadow(gaussian, rgba(79, 70, 229, 0.1), 8, 0, 0, 4);
+}
+
+.question-text {
+    -fx-font-size: 18; /* Make text larger and legible */
+    -fx-text-fill: white; /* Text is now visible */
+    -fx-wrap-text: true; /* Ensure text wraps within the container */
+    -fx-alignment: center; /* Center-align the question */
+}
+
+.answer-button {
+    -fx-background-color: rgba(60, 60, 90, 0.9);
+    -fx-text-fill: white;
+    -fx-border-color: rgba(120, 100, 230, 0.5);
+    -fx-border-width: 2;
+    -fx-border-radius: 12;
+    -fx-font-size: 16;
+    -fx-cursor: hand;
+    -fx-padding: 10;
+    -fx-alignment: center;
+}
+
+.answer-button:hover {
+    -fx-background-color: rgba(100, 80, 250, 0.3);
+    -fx-border-color: #4F46E5;
+    -fx-text-fill: #FFD700;
+    -fx-effect: dropshadow(gaussian, rgba(79, 70, 229, 0.4), 6, 0, 0, 3);
+}
+
+.answer-button:selected {
+    -fx-background-color: #4F46E5;
+    -fx-text-fill: white;
+    -fx-border-color: #FFD700;
+}
+
+.next-button {
+    -fx-background-color: linear-gradient(to right, #6A5ACD, #483D8B); /* Cooler gradient */
+    -fx-text-fill: white;
+    -fx-padding: 10 20;
+    -fx-font-size: 14;
+    -fx-border-radius: 10;
+    -fx-cursor: hand;
+    -fx-alignment: center; /* Center-align text */
+    -fx-effect: dropshadow(gaussian, rgba(79, 70, 229, 0.4), 12, 0, 0, 6);
+    -fx-translate-y: -10; /* Move slightly up for better positioning */
+}
+
+.next-button:hover {
+    -fx-background-color: linear-gradient(to right, #FFD700, #FF8C00);
+    -fx-effect: dropshadow(gaussian, rgba(255, 165, 0, 0.4), 15, 0, 0, 10);
+}

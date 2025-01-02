@@ -5,9 +5,10 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.geometry.Insets?>
 
-<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" 
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.quiz.controller.QuizController"
-      styleClass="quiz-container" spacing="15">
+      styleClass="root, quiz-container" spacing="15"
+      stylesheets="@../styles/quiz.css">
 
     <!-- Control Bar -->
     <HBox alignment="CENTER_RIGHT" spacing="10" styleClass="control-bar">
@@ -19,6 +20,7 @@
         </padding>
     </HBox>
 
+    <!-- Rest of your original content stays exactly the same -->
     <!-- Quiz Title -->
     <Label fx:id="quizTitle" text="Quiz" styleClass="quiz-title"/>
 
