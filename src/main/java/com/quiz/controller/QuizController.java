@@ -64,6 +64,8 @@ public class QuizController {
     @FXML
     public void initialize() {
         questions = QuestionDao.getQuestionsByQuizId(quizId);
+        // Add this line to shuffle questions
+        java.util.Collections.shuffle(questions);
         setupAnswerGroup();
         initializeTimer();
         setupControlButtons();
@@ -81,7 +83,12 @@ public class QuizController {
     }
 
     private void initializeTimer() {
+        System.out.println("Initializing timer");
+        if (timer != null) {
+            timer.stop();
+        }
         timer = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            System.out.println("Timer tick - timeLeft: " + timeLeft);
             if (!isPaused && timeLeft > 0) {
                 timeLeft--;
                 updateTimerDisplay();
@@ -92,6 +99,7 @@ public class QuizController {
         }));
         timer.setCycleCount(Timeline.INDEFINITE);
         timer.play();
+        System.out.println("Timer started");
     }
 
     private void updateTimerDisplay() {
@@ -178,12 +186,13 @@ public class QuizController {
     public void resetQuiz() {
         currentQuestionIndex = 0;
         score = 0;
-        timeLeft = 30;
+        timeLeft = timePerQuestion;
         isPaused = false;
-        loadQuestion();
         if (timer != null) {
-            timer.play();
+            timer.stop();
         }
+        initializeTimer();
+        loadQuestion();
     }
 
     private void loadQuestion() {
@@ -231,12 +240,18 @@ public class QuizController {
     @FXML
     private void handleSubmitAnswer() {
         if (!isPaused) {
-            timer.pause();
+            if (timer != null) {
+                timer.pause();
+            }
             processAnswer();
         }
     }
 
     private void processAnswer() {
+    	System.out.println("Processing answer");
+        if (timer != null) {
+            timer.pause();
+        }
         RadioButton selectedOption = (RadioButton) answerGroup.getSelectedToggle();
         Question currentQuestion = questions.get(currentQuestionIndex);
         
@@ -279,6 +294,9 @@ public class QuizController {
         currentQuestionIndex++;
         if (currentQuestionIndex < questions.size()) {
             loadQuestion();
+            if (timer != null) {
+                timer.play(); // Restart timer for next question
+            }
         } else {
             finishQuiz();
         }
