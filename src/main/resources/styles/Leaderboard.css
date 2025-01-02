@@ -34,26 +34,50 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0, 0, 5); /* Shadow for visibility */
 }
 
-/* Table styling */
-.leaderboard-table {
-    -fx-background-color: #262636; /* Darker background for the table */
+/* TableView styling */
+#leaderboardTable {
+    -fx-background-color: #262636; /* Dark background for the table */
     -fx-border-color: rgba(79, 70, 229, 0.2); /* Light border color */
-    -fx-border-width: 1;
+    -fx-border-width: 2;
     -fx-border-radius: 12;
-    -fx-effect: dropshadow(gaussian, rgba(79, 70, 229, 0.1), 8, 0, 0, 4);
     -fx-pref-width: 600px;
 }
 
 /* Table column styling */
-.leaderboard-column {
+#rankColumn, #nameColumn, #scoreColumn {
     -fx-alignment: CENTER;
     -fx-font-size: 16px;
     -fx-font-weight: bold;
     -fx-text-fill: #FFD700; /* Gold text */
-    -fx-background-color: transparent; /* Transparent background */
+    -fx-background-color: transparent;
+    -fx-padding: 5px;
 }
 
-/* Make the table rows stand out with slight hovering effect */
-.table-row-cell:hover {
-    -fx-background-color: rgba(79, 70, 229, 0.2); /* Hover effect on rows */
+/* Table cell styling */
+#leaderboardTable .table-cell {
+    -fx-background-color: #333343; /* Dark background for rows */
+    -fx-text-fill: #FFD700; /* Gold text */
+    -fx-padding: 8px;
+    -fx-border-color: rgba(79, 70, 229, 0.2); /* Light border color */
+    -fx-border-width: 1px;
+}
+
+/* Table row hover effect */
+#leaderboardTable .table-row-cell:hover {
+    -fx-background-color: rgba(79, 70, 229, 0.3); /* Hover effect on rows */
+    -fx-text-fill: white; /* White text when hovered */
+}
+
+/* Styling the header row */
+#leaderboardTable .table-header-row {
+    -fx-background-color: #1e1e2f; /* Dark header background */
+    -fx-border-color: rgba(79, 70, 229, 0.4); /* Visible border */
+    -fx-border-width: 2px;
+}
+
+/* Additional improvement for columns */
+#rankColumn .text, #nameColumn .text, #scoreColumn .text {
+    -fx-font-weight: bold;
+    -fx-font-size: 18px;
+    -fx-text-fill: #FFD700; /* Gold text */
 }
