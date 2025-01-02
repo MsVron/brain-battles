@@ -1,5 +1,8 @@
 package com.quiz;
 
+
+import javafx.scene.image.Image;
+
 import java.io.IOException;
 import java.net.URL;
 import com.quiz.database.entity.User;
@@ -107,41 +110,50 @@ public class App {
     }
 }
    public static class JavaFXQuizApp extends Application {
-	    @Override
-	    public void start(Stage stage) throws Exception {
-	        System.out.println("APP RUNNING...");
-	        
-	        try {
-	            // Set the primary stage
-	            App.setPrimaryStage(stage);
-	            
-	            // Initialize database connection
-	            DatabaseConnection.getConnection();
-	            System.out.println("Database connection established!");
-	            
-	            // Load FXML
-	            URL fxmlPath = getClass().getResource("/fxml/LoginView.fxml");
-	            FXMLLoader loader = new FXMLLoader(fxmlPath);
-	            Scene scene = new Scene(loader.load());
-	            
-	            // Add CSS
-	            String css = getClass().getResource("/styles/LoginView.css").toExternalForm();
-	            scene.getStylesheets().add(css);
-	            
-	            stage.setTitle("Quiz Application");
-	            stage.setScene(scene);
-	            stage.show();
-	            
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	            System.err.println("Database connection failed: " + e.getMessage());
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	            System.err.println("Failed to load FXML: " + e.getMessage());
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	            System.err.println("An unexpected error occurred: " + e.getMessage());
-	        }
-	    }
+	   
+	   @Override
+	   public void start(Stage stage) throws Exception {
+	       System.out.println("APP RUNNING...");
+	       
+	       try {
+	           // Set the primary stage
+	           App.setPrimaryStage(stage);
+	           
+	           // Set the application icon
+	           try {
+	               Image icon = new Image(getClass().getResourceAsStream("/images/logo.png"));
+	               stage.getIcons().add(icon);
+	           } catch (Exception e) {
+	               System.err.println("Failed to load application icon: " + e.getMessage());
+	           }
+	           
+	           // Initialize d atabase connection
+	           DatabaseConnection.getConnection();
+	           System.out.println("Database connection established!");
+	           
+	           // Load FXML
+	           URL fxmlPath = getClass().getResource("/fxml/LoginView.fxml");
+	           FXMLLoader loader = new FXMLLoader(fxmlPath);
+	           Scene scene = new Scene(loader.load());
+	           
+	           // Add CSS
+	           String css = getClass().getResource("/styles/LoginView.css").toExternalForm();
+	           scene.getStylesheets().add(css);
+	           
+	           stage.setTitle("Quiz Application");
+	           stage.setScene(scene);
+	           stage.show();
+	           
+	       } catch (SQLException e) {
+	           e.printStackTrace();
+	           System.err.println("Database connection failed: " + e.getMessage());
+	       } catch (IOException e) {
+	           e.printStackTrace();
+	           System.err.println("Failed to load FXML: " + e.getMessage());
+	       } catch (Exception e) {
+	           e.printStackTrace();
+	           System.err.println("An unexpected error occurred: " + e.getMessage());
+	       }
+	   }
 	}
 }
