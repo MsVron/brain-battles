@@ -301,7 +301,10 @@ public class QuizController {
         }
         Scene currentScene = quizTitle.getScene();
         if (currentScene != null) {
-            currentScene.getWindow().hide();
+            Stage stage = (Stage) currentScene.getWindow();
+            if (stage != null) {
+                stage.close();  // Actually close the window instead of hiding it
+            }
         }
     }
 

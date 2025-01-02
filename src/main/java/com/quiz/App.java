@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.URL;
 import com.quiz.database.entity.User;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.quiz.database.DatabaseConnection;
 import com.quiz.controller.QuizController;
@@ -12,13 +14,16 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.application.Platform;
+import javafx.stage.Window;
+
 
 public class App {
     public static User user;
     private static Stage primaryStage;
 
     public static void main(String[] args) {
-        JavaFXQuizApp.main(args);
+        Application.launch(JavaFXQuizApp.class, args);
     }
 
     public static void setPrimaryStage(Stage stage) {
@@ -29,29 +34,62 @@ public class App {
         try {
             FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/LoginView.fxml"));
             Scene scene = new Scene(loader.load());
+            
+            // Reset window size to login screen dimensions
+            primaryStage.setWidth(900);  // Set to your login screen's default width
+            primaryStage.setHeight(600); // Set to your login screen's default height
+            
             primaryStage.setScene(scene);
             primaryStage.show();
-            primaryStage.centerOnScreen(); // Center the window
+            primaryStage.centerOnScreen();
         } catch (IOException e) {
             e.printStackTrace();
             System.err.println("Failed to load login screen: " + e.getMessage());
         }
     }
-    public static void logout() {
-        user = null; // Clear the current user
-        
-        // Close all open windows except primaryStage
-        Stage[] stages = Stage.getWindows().toArray(new Stage[0]);
-        for (Stage stage : stages) {
-            if (stage != primaryStage) {
-                stage.close();
+    
+  public static void logout() {
+    user = null; // Clear the current user
+    
+    Platform.runLater(() -> {
+        try {
+            // Store reference to primary stage
+            Stage mainStage = primaryStage;
+            if (mainStage == null) {
+                System.err.println("Primary stage is null!");
+                return;
             }
+            
+            // Create new login scene first
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/LoginView.fxml"));
+            Scene loginScene = new Scene(loader.load());
+            
+            // Add CSS
+            String css = App.class.getResource("/styles/LoginView.css").toExternalForm();
+            loginScene.getStylesheets().clear();
+            loginScene.getStylesheets().add(css);
+            
+            // Close all other windows
+            for (Window window : new ArrayList<>(Window.getWindows())) {
+                if (window instanceof Stage && window != mainStage) {
+                    ((Stage) window).close();
+                }
+            }
+            
+            // Set up and show login screen on primary stage
+            mainStage.setScene(loginScene);
+            mainStage.setWidth(900);
+            mainStage.setHeight(600);
+            mainStage.centerOnScreen();
+            mainStage.show();
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Failed to load login screen: " + e.getMessage());
         }
-        
-        // Show login screen
-        showLoginScreen();
-    }
-
+    });
+}
+  
    public static void loadQuiz() {
     try {
         FXMLLoader loader = new FXMLLoader(App.class.getResource("/fxml/QuizView.fxml")); // Changed from quiz-view.fxml to QuizView.fxml
@@ -68,34 +106,42 @@ public class App {
         System.err.println("Failed to load QuizView.fxml: " + e.getMessage());
     }
 }
-    public static class JavaFXQuizApp extends Application {
-        @Override
-        public void start(Stage stage) throws Exception {
-            System.out.println("APP RUNNING...");
-            
-            try {
-                // Initialize database connection
-                DatabaseConnection.getConnection();
-                System.out.println("Database connection established!");
-                
-                // Set the primary stage reference
-                App.setPrimaryStage(stage);
-                
-                // Load initial login screen
-                URL fxmlPath = getClass().getResource("/fxml/LoginView.fxml");
-                FXMLLoader loader = new FXMLLoader(fxmlPath);
-                
-                stage.setTitle("Quiz Application");
-                stage.setScene(new Scene(loader.load()));
-                stage.show();
-                
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-
-        public static void main(String[] args) {
-            launch(args);
-        }
-    }
+   public static class JavaFXQuizApp extends Application {
+	    @Override
+	    public void start(Stage stage) throws Exception {
+	        System.out.println("APP RUNNING...");
+	        
+	        try {
+	            // Set the primary stage
+	            App.setPrimaryStage(stage);
+	            
+	            // Initialize database connection
+	            DatabaseConnection.getConnection();
+	            System.out.println("Database connection established!");
+	            
+	            // Load FXML
+	            URL fxmlPath = getClass().getResource("/fxml/LoginView.fxml");
+	            FXMLLoader loader = new FXMLLoader(fxmlPath);
+	            Scene scene = new Scene(loader.load());
+	            
+	            // Add CSS
+	            String css = getClass().getResource("/styles/LoginView.css").toExternalForm();
+	            scene.getStylesheets().add(css);
+	            
+	            stage.setTitle("Quiz Application");
+	            stage.setScene(scene);
+	            stage.show();
+	            
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	            System.err.println("Database connection failed: " + e.getMessage());
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	            System.err.println("Failed to load FXML: " + e.getMessage());
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            System.err.println("An unexpected error occurred: " + e.getMessage());
+	        }
+	    }
+	}
 }

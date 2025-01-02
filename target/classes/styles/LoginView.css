@@ -1,0 +1,84 @@
+.root {
+    -fx-background-color: white;
+}
+
+.login-form-container {
+    -fx-background-color: white;
+    -fx-min-width: 350;
+}
+
+.title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-fill: #333333;
+}
+
+.subtitle {
+    -fx-font-size: 16px;
+    -fx-fill: #666666;
+    -fx-margin-bottom: 20;
+}
+
+.label-text {
+    -fx-font-size: 14px;
+    -fx-fill: #333333;
+}
+
+.input-field {
+    -fx-background-color: white;
+    -fx-border-color: #E5E7EB;
+    -fx-border-width: 2;
+    -fx-border-radius: 4;
+    -fx-padding: 8;
+    -fx-font-size: 14px;
+}
+
+.input-field:focused {
+    -fx-border-color: #6366F1;
+    -fx-background-color: white;
+}
+
+.login-button {
+    -fx-background-color: #6366F1;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10 20;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-cursor: hand;
+    -fx-min-width: 200;
+    -fx-margin-top: 10;
+}
+
+.login-button:hover {
+    -fx-background-color: #4F46E5;
+}
+
+.text {
+    -fx-fill: #666666;
+    -fx-font-size: 14px;
+}
+
+.signup-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #6366F1;
+    -fx-border-width: 0;
+    -fx-cursor: hand;
+    -fx-padding: 0;
+}
+
+.signup-button:hover {
+    -fx-text-fill: #4F46E5;
+}
+
+.logo-container {
+    -fx-padding: 20;
+    -fx-alignment: center;
+}
+
+.app-title {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-fill: #6366F1;
+    -fx-margin-top: 20;
+}

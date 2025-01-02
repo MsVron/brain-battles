@@ -7,6 +7,9 @@ import javafx.scene.control.Alert.AlertType;
 import com.quiz.App;
 import javafx.scene.control.ButtonType;
 import com.quiz.controller.QuizController;
+import javafx.application.Platform;
+import javafx.stage.Window;
+
 
 public class OptionsMenuController {
     
@@ -50,21 +53,39 @@ public class OptionsMenuController {
         confirmation.setTitle("Déconnexion");
         confirmation.setHeaderText("Se déconnecter");
         confirmation.setContentText("Êtes-vous sûr de vouloir vous déconnecter ?");
-        
+
         confirmation.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
-                // Close options dialog first
-                dialogStage.close();
-                
-                // Close the quiz window
-                quizController.closeQuizWindow();
-                
-                // Logout (this will show the login screen)
-                App.logout();
+                Platform.runLater(() -> {
+                    try {
+                        System.out.println("Starting disconnect process...");
+                        
+                        // First close this options dialog
+                        if (dialogStage != null) {
+                            dialogStage.close();
+                        }
+                        
+                        // Then close quiz window if it exists
+                        if (quizController != null) {
+                            System.out.println("Closing quiz window...");
+                            quizController.closeQuizWindow();
+                        }
+                        
+                        // Small delay to ensure windows are closed
+                        Platform.runLater(() -> {
+                            System.out.println("Calling logout...");
+                            App.logout();
+                        });
+                        
+                    } catch (Exception e) {
+                        System.err.println("Error during disconnect: " + e.getMessage());
+                        e.printStackTrace();
+                    }
+                });
             }
         });
     }
-    
+  
     @FXML
     private void handleQuit() {
         Alert confirmation = new Alert(AlertType.CONFIRMATION);

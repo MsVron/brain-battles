@@ -168,3 +168,63 @@
 .menu-button:hover {
     -fx-background-color: #F3F4F6;
 }
+
+.main-container {
+    -fx-background-color: white;
+    -fx-padding: 30;
+}
+
+.login-container {
+    -fx-border-color: #E5E7EB;
+    -fx-border-width: 2;
+    -fx-border-radius: 8;
+    -fx-background-color: white;
+    -fx-min-width: 300;
+}
+
+.input-field {
+    -fx-padding: 8;
+    -fx-border-color: #E5E7EB;
+    -fx-border-width: 2;
+    -fx-border-radius: 4;
+    -fx-background-color: white;
+}
+
+.login-button {
+    -fx-padding: 8;
+    -fx-border-color: #E5E7EB;
+    -fx-border-width: 2;
+    -fx-border-radius: 4;
+    -fx-background-color: white;
+    -fx-cursor: hand;
+}
+
+.login-button:hover {
+    -fx-background-color: #F9FAFB;
+}
+
+.signup-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #4B5563;
+    -fx-font-size: 12;
+    -fx-cursor: hand;
+    -fx-border-width: 0;
+}
+
+.signup-button:hover {
+    -fx-underline: true;
+}
+
+.logo-container {
+    -fx-border-color: #E5E7EB;
+    -fx-border-width: 2;
+    -fx-padding: 30;
+    -fx-rotate: 45;
+    -fx-background-color: white;
+}
+
+.logo-text {
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-rotate: -45;
+}
