@@ -38,7 +38,17 @@ public class App {
 
     public static void logout() {
         user = null; // Clear the current user
-        showLoginScreen(); // Show the login screen
+        
+        // Close all open windows except primaryStage
+        Stage[] stages = Stage.getWindows().toArray(new Stage[0]);
+        for (Stage stage : stages) {
+            if (stage != primaryStage) {
+                stage.close();
+            }
+        }
+        
+        // Show login screen
+        showLoginScreen();
     }
 
    public static void loadQuiz() {

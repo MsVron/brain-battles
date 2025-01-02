@@ -53,9 +53,13 @@ public class OptionsMenuController {
         
         confirmation.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
-                // The quiz is already paused from opening settings
-                quizController.closeQuizWindow();
+                // Close options dialog first
                 dialogStage.close();
+                
+                // Close the quiz window
+                quizController.closeQuizWindow();
+                
+                // Logout (this will show the login screen)
                 App.logout();
             }
         });
