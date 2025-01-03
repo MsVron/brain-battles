@@ -22,28 +22,28 @@
                <Insets top="30" right="40" bottom="30" left="40"/>
            </padding>
            
-           <Text text="Welcome back" styleClass="title"/>
-           <Text text="Login to your account" styleClass="subtitle"/>
+           <Text text="Bienvenue" styleClass="title"/>
+           <Text text="Connectez-vous à votre compte" styleClass="subtitle"/>
            
            <VBox spacing="10">
                <Text text="Email" styleClass="label-text"/>
                <TextField fx:id="emailField" styleClass="input-field"
-                         promptText="Enter your email"/>
+                         promptText="Entrez votre email"/>
            </VBox>
            
            <VBox spacing="10">
-               <Text text="Password" styleClass="label-text"/>
+               <Text text="Mot de passe" styleClass="label-text"/>
                <PasswordField fx:id="passwordField" styleClass="input-field"
-                            promptText="Enter your password"/>
+                            promptText="Entrez votre mot de passe"/>
            </VBox>
            
            <HBox alignment="CENTER">
-               <Button text="Login" onAction="#handleLogin" styleClass="login-button"/>
+               <Button text="Connexion" onAction="#handleLogin" styleClass="login-button"/>
            </HBox>
            
            <HBox spacing="10" alignment="CENTER">
-               <Text text="Don't have an account?" styleClass="signup-text"/>
-               <Text text="Sign up" onMouseClicked="#handleSignup" styleClass="signup-link"/>
+               <Text text="Vous n'avez pas de compte ?" styleClass="signup-text"/>
+               <Text text="Inscrivez-vous" onMouseClicked="#handleSignup" styleClass="signup-link"/>
            </HBox>
        </VBox>
        
