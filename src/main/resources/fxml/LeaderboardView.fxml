@@ -22,7 +22,7 @@
             <TableColumn fx:id="nameColumn" text="Nom du joueur" styleClass="leaderboard-column" prefWidth="250"/>
 
             <!-- Colonne Score -->
-            <TableColumn fx:id="scoreColumn" text="Score" styleClass="leaderboard-column" prefWidth="150"/>
+            <TableColumn fx:id="scoreColumn" text="Score" styleClass="leaderboard-column" prefWidth="235"/>
         </columns>
     </TableView>
 </VBox>
