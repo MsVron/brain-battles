@@ -27,14 +27,4 @@ mvn package
 java -jar target\javafx-sqlite-quiz.jar
 ```
 
-## Screenshot
 
-- [Add new quiz](screenshot/add.png)
-- [Edit quiz](screenshot/edit.png)
-- [Quiz list](screenshot/quiz-list.png)
-- [Quiz detail](screenshot/quiz-detail.png)
-
-# License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details
-
-Created by [Yusuf Sezer](https://www.quiz.com)
